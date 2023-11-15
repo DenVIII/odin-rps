@@ -16,7 +16,21 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-const playerChoice = 'rOcK';
-const computerChoice = getComputerChoice();
+function game() {
+    const wins = [];
+    const gameResult;  
 
-console.log(playRound(playerChoice, computerChoice));
+    for (i = 1; i <= 5; i++) {
+        const playerChoice = getComputerChoice(); // Для рандома
+        const computerChoice = getComputerChoice();
+        wins.push(playRound(playerChoice, computerChoice));
+    }
+
+    gameResult = wins.reduce((acc, item) => {
+        return acc[item] ? ++acc[item] : acc[item] = 1, acc
+    }, {});
+
+    
+}
+
+game();
