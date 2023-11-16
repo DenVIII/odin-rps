@@ -18,19 +18,27 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
     const wins = [];
-    const gameResult;  
 
     for (i = 1; i <= 5; i++) {
-        const playerChoice = getComputerChoice(); // Для рандома
+        const playerChoice = prompt('Type rock, paper or scissors');
         const computerChoice = getComputerChoice();
-        wins.push(playRound(playerChoice, computerChoice));
+        const roundResult = playRound(playerChoice, computerChoice);
+        console.log(roundResult);
+        wins.push(roundResult);
     }
 
-    gameResult = wins.reduce((acc, item) => {
+    const gameResult = wins.reduce((acc, item) => {
         return acc[item] ? ++acc[item] : acc[item] = 1, acc
     }, {});
 
-    
+    console.log(gameResult)
+    if (gameResult['Player Wins!'] === gameResult['Computer Wins!']) {
+        return "It's a Tie!";
+    } else if (gameResult['Player Wins!'] > gameResult['Computer Wins!'] || gameResult['Computer Wins!'] === undefined) {
+        return 'Player Won the game!';
+    } else {
+        return 'Computer Won the game!';
+    }
 }
 
-game();
+console.log(game());
