@@ -19,14 +19,12 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     const wins = [];
 
-    for (i = 1; i <= 5; i++) {
-        const playerChoice = prompt('Type rock, paper or scissors');
-        const computerChoice = getComputerChoice();
-        const roundResult = playRound(playerChoice, computerChoice);
-        console.log(roundResult);
-        wins.push(roundResult);
-    }
-
+    const playerChoice = prompt('Type rock, paper or scissors');
+    const computerChoice = getComputerChoice();
+    const roundResult = playRound(playerChoice, computerChoice);
+    console.log(roundResult);
+    wins.push(roundResult);
+    
     const gameResult = wins.reduce((acc, item) => {
         return acc[item] ? ++acc[item] : acc[item] = 1, acc
     }, {});
