@@ -2,29 +2,25 @@ function getComputerChoice() {
     return ['rock', 'paper', 'scissors'][Math.floor(Math.random() * 3)];
 }
 
-function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
+function playRound() {
+    const playerSelection = this.textContent.toLowerCase();
+    const computerSelection = getComputerChoice();
 
-    if (playerSelection === computerSelection) {
-        return 'Tie!';
-    } else if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
-               (playerSelection === 'paper' && computerSelection === 'scissors') ||
-               (playerSelection === 'scissors' && computerSelection === 'paper')) {
-        return 'Player Wins!';
-    } else {
-        return 'Computer Wins!';
+    if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
+        (playerSelection === 'paper' && computerSelection === 'scissors') ||
+        (playerSelection === 'scissors' && computerSelection === 'paper')) {
+            playerScore.textContent = parseInt(playerScore.textContent) + 1;
+    } else if (playerSelection !== computerSelection) {
+            computerScore.textContent = parseInt(computerScore.textContent) + 1;
     }
 }
 
 function game() {
     const wins = [];
 
-    const playerChoice = prompt('Type rock, paper or scissors');
-    const computerChoice = getComputerChoice();
-    const roundResult = playRound(playerChoice, computerChoice);
     console.log(roundResult);
     wins.push(roundResult);
-    
+
     const gameResult = wins.reduce((acc, item) => {
         return acc[item] ? ++acc[item] : acc[item] = 1, acc
     }, {});
@@ -38,5 +34,11 @@ function game() {
         return 'Computer Won the game!';
     }
 }
+
+const btns = document.querySelectorAll('button');
+const playerScore = document.querySelector('.player-score');
+const computerScore = document.querySelector('.computer-score');
+
+btns.forEach(btn => btn.addEventListener('click', playRound))
 
 console.log(game());
