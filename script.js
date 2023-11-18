@@ -13,32 +13,38 @@ function playRound() {
     } else if (playerSelection !== computerSelection) {
             computerScore.textContent = parseInt(computerScore.textContent) + 1;
     }
+
+    if (winner.textContent != '') {
+        winner.textContent = '';
+    }
 }
 
 function game() {
-    const wins = [];
+    const playerWins = parseInt(playerScore.textContent);
+    const computerWins = parseInt(computerScore.textContent);
 
-    console.log(roundResult);
-    wins.push(roundResult);
-
-    const gameResult = wins.reduce((acc, item) => {
-        return acc[item] ? ++acc[item] : acc[item] = 1, acc
-    }, {});
-
-    console.log(gameResult)
-    if (gameResult['Player Wins!'] === gameResult['Computer Wins!']) {
-        return "It's a Tie!";
-    } else if (gameResult['Player Wins!'] > gameResult['Computer Wins!'] || gameResult['Computer Wins!'] === undefined) {
-        return 'Player Won the game!';
-    } else {
-        return 'Computer Won the game!';
+    if (playerWins < 5 && computerWins < 5) {
+        return;
     }
+
+    if (playerWins > computerWins) {
+        winner.textContent = 'Player';
+    } else {
+        winner.textContent = 'Computer';
+    }
+
+    resetGame();
+}
+
+function resetGame() {
+    playerScore.textContent = '0';
+    computerScore.textContent = '0';
 }
 
 const btns = document.querySelectorAll('button');
 const playerScore = document.querySelector('.player-score');
 const computerScore = document.querySelector('.computer-score');
+const winner = document.querySelector('.winner');
 
-btns.forEach(btn => btn.addEventListener('click', playRound))
-
-console.log(game());
+btns.forEach(btn => btn.addEventListener('click', playRound));
+btns.forEach(btn => btn.addEventListener('click', game));
